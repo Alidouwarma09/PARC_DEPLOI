@@ -59,6 +59,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+ALLOWED_HOSTS = ['parc-deploi.onrender.com', 'localhost', '127.0.0.1', '[::1]']
+
+
 ROOT_URLCONF = 'parc_automobile.urls'
 
 TEMPLATES = [
