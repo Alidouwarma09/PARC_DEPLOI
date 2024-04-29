@@ -1,16 +1,17 @@
 from django.urls import path
 
-from Admin.view import rapport_entretien_mensuel_pdf, rapport_entretien_mensuel_admins, \
-    rapport_incident_vehicule_mensuel_admins, rapport_incident_vehicule_mensuel_pdf, ProfilAdmin
-from Admin.views import inscription, employer_compte, active_emp, desactive_amp, gestionnaire_inactifs, \
+from Admin.views import rapport_entretien_mensuel_pdf, rapport_entretien_mensuel_admins, \
+    rapport_incident_vehicule_mensuel_admins, rapport_incident_vehicule_mensuel_pdf, ProfilAdmin, inscription, \
+    employer_compte, active_emp, desactive_amp, gestionnaire_inactifs, \
     gestionnaire_a_search, gestionnaire_a_search_i, Ajouter_Carburant, liste_Carburant, \
     Carburant_search, dashboard_admins, rapport_depense_admins, rapport_depense_mensuel_admins, \
     rapport_depense_mensuel_pdf, rapport_depense_pdf, \
     CustomPasswordResetConfirmView, ChangerMotDePasse_admin, rapport_carburant_mensuel_pdf, \
     rapport_carburant_mensuel_admins, rapport_incident_conducteur_mensuel_admins, \
-    rapport_incident_conducteur_mensuel_pdf
-from Admin.views2 import liste_deplacement_arrive_admin, liste_incidents_interne_admin, liste_incidents_externe_admin, \
-    details_arriver_admin, incident_interne_detail_admin, incident_externe_detail_admin
+    rapport_incident_conducteur_mensuel_pdf, liste_deplacement_arrive_admin, liste_incidents_interne_admin, \
+    liste_incidents_externe_admin, \
+    details_arriver_admin, incident_interne_detail_admin, incident_externe_detail_admin, incidents_search, \
+    incidents_externe_search, arrive_search
 
 app_name = 'admins'
 
@@ -47,5 +48,9 @@ urlpatterns = [
     path('details_arriver_admin/<int:etatarrive_id>/', details_arriver_admin, name='details_arriver_admin'),
     path('detail_incidents_interne-<int:pk>/', incident_interne_detail_admin, name='incident_interne_detail_admin'),
     path('detail_incidents_externe-<int:pk>/', incident_externe_detail_admin, name='incident_externe_detail_admin'),
+    path('detail_incidents_externe-<int:pk>/', incident_externe_detail_admin, name='incident_externe_detail_admin'),
+    path('incidents_search/', incidents_search, name='incidents_search'),
+    path('incidents_externe_search/', incidents_externe_search, name='incidents_externe_search'),
+    path('arrive_search/', arrive_search, name='arrive_search'),
 
 ]
