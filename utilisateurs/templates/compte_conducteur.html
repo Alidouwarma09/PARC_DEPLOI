@@ -2,6 +2,23 @@
 {% load static %}
 {% block content %}
     <style>
+        .loading {
+            position: relative;
+            display: inline-block;
+        }
+        .loading::after {
+            content: 'C';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid blue;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
         .warning {
             color: #212529;
             background-color: #ffc107;
@@ -694,7 +711,7 @@
                         </button>
                     </div>
                     <div class="iq-card-body" style="overflow-y: auto">
-                        <form class="form-horizontal" id="DeplacementArriverForm" method="post"
+                        <form class="form-horizontal demande-prolongement-form" id="DeplacementArriverForm" method="post"
                               enctype="multipart/form-data" action="{% url 'utilisateur:prolongement' %}">
                             {% csrf_token %}
                             <input type="hidden" id="deplacement_id" name="deplacement_id">
@@ -745,7 +762,7 @@
                             <div class="modal-footer">
                                 <div class="row ">
                                     <div class="col-6">
-                                        <button type="submit" class="btn btn-primary"
+                                        <button id="submitButtonProlongement" type="submit" class="btn btn-primary"
                                                 style="background-color: #ff7a29; border-color: #ff7a29; color: white;">
                                             Enregistrer
                                         </button>
@@ -1117,6 +1134,18 @@
                 event.preventDefault();
                 var url = link.getAttribute('href');
                 loadEnteteContent(url);
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.querySelector('.demande-prolongement-form');
+            const submitButton = document.getElementById('submitButtonProlongement');
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                submitButton.disabled = true;
+                submitButton.classList.add('loading');
+                form.submit();
             });
         });
     </script>
