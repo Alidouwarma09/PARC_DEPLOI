@@ -178,7 +178,7 @@
             imageContentCopy.style.marginTop = '100px'; // Ajustez selon vos besoins
 
             var imageContentCopy = contentPageCopy.querySelector('.imageContent');
-            imageContentCopy.style.marginTop = '350px'; // Ajustez selon vos besoins
+            imageContentCopy.style.marginTop = '50px'; // Ajustez selon vos besoins
             var imageContentCopy = contentPageCopy.querySelector('.image2Content');
             imageContentCopy.style.marginTop = '450px'; // Ajustez selon vos besoins
 
@@ -189,8 +189,10 @@
 
             var images = contentPageCopy.querySelectorAll('.vehicule-image');
             for (var i = 0; i < images.length; i++) {
+                images[i].style.minWidth = '200px';
                 images[i].style.maxWidth = '200px';
-                images[i].style.height = 'auto';
+                images[i].style.maxHeight = '200px';
+                images[i].style.minHeight = 'auto';
                 images[i].style.display = 'inline-block';
                 images[i].style.marginLeft = '100px';
                 images[i].style.marginTop = '50px';
