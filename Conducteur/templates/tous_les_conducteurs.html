@@ -66,6 +66,7 @@
                                             <thead >
                                             <tr class="table-danger">
                                                 <th >Image</th>
+                                                <th >Nom Utilisateur</th>
                                                 <th >Nom</th>
                                                 <th >Prénoms</th>
                                                 <th >Numéro</th>
@@ -91,6 +92,7 @@
                                                             </svg>
                                                         {% endif  %}
                                                         </td>
+                                                        <td>{{ utilisateur.username }}</td>
                                                         <td>{{ utilisateur.nom|capfirst }}</td>
                                                         <td>{{ utilisateur.prenom|title }}</td>
                                                         <td>{{ utilisateur.conducteur.numero_telephone}}</td>
