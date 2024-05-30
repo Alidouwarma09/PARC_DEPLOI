@@ -150,6 +150,42 @@ class VehiculeForm(forms.ModelForm):
             'unique': 'Un véhicule a déjà été enregistré avec ce numéro de carte grise.',
             'required': 'Ce champ est obligatoire.'
         }
+        self.fields['image_taxe'].widget.attrs.update({
+            'class': "form-control",
+            'id': "image_taxe",
+        })
+        self.fields['image_recepisse'].widget.attrs.update({
+            'class': "form-control",
+            'id': "image_recepisse",
+        })
+        self.fields['image_rapport_identification'].widget.attrs.update({
+            'class': "form-control",
+            'id': "image_rapport_identification",
+        })
+        self.fields['image_attestation_assurance'].widget.attrs.update({
+            'class': "form-control",
+            'id': "image_attestation_assurance",
+        })
+        self.fields['image_assurance_carte_brune'].widget.attrs.update({
+            'class': "form-control",
+            'id': "image_assurance_carte_brune",
+        })
+        self.fields['date_limite_recepisse'].widget.attrs.update({
+            'class': "form-control",
+            'id': "date_limite_recepisse",
+        })
+        self.fields['date_limite_assurance_carteBrune'].widget.attrs.update({
+            'class': "form-control",
+            'id': "date_limite_assurance_carteBrune",
+        })
+        self.fields['date_limite_taxe'].widget.attrs.update({
+            'class': "form-control",
+            'id': "date_limite_taxe",
+        })
+        self.fields['date_limite_certificatVignette'].widget.attrs.update({
+            'class': "form-control",
+            'id': "date_limite_certificatVignette",
+        })
 
 
 class VehiculeModifierForm(forms.ModelForm):
@@ -225,6 +261,42 @@ class VehiculeModifierForm(forms.ModelForm):
         self.fields['videnge'].widget.attrs.update({
             'class': "form-control",
             'id': "videnge ",
+        })
+        self.fields['image_taxe'].widget.attrs.update({
+            'class': "form-control",
+            'id': "image_taxe",
+        })
+        self.fields['image_recepisse'].widget.attrs.update({
+            'class': "form-control",
+            'id': "image_recepisse",
+        })
+        self.fields['image_rapport_identification'].widget.attrs.update({
+            'class': "form-control",
+            'id': "image_rapport_identification",
+        })
+        self.fields['image_attestation_assurance'].widget.attrs.update({
+            'class': "form-control",
+            'id': "image_attestation_assurance",
+        })
+        self.fields['image_assurance_carte_brune'].widget.attrs.update({
+            'class': "form-control",
+            'id': "image_assurance_carte_brune",
+        })
+        self.fields['date_limite_recepisse'].widget.attrs.update({
+            'class': "form-control",
+            'id': "date_limite_recepisse",
+        })
+        self.fields['date_limite_assurance_carteBrune'].widget.attrs.update({
+            'class': "form-control",
+            'id': "date_limite_assurance_carteBrune",
+        })
+        self.fields['date_limite_taxe'].widget.attrs.update({
+            'class': "form-control",
+            'id': "date_limite_taxe",
+        })
+        self.fields['date_limite_certificatVignette'].widget.attrs.update({
+            'class': "form-control",
+            'id': "date_limite_certificatVignette",
         })
 
 

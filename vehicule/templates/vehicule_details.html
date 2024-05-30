@@ -151,6 +151,26 @@
                                         </tr>
 
                                         <tr>
+                                            <td><strong>DATE LIMITE DU RECEPISSE D IDENTIFICATION :</strong></td>
+                                            <td class="text-center">{{ vehicule.date_limite_recepisse }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><strong>DATE LIMITE DE L ASSURANCE CARTE BRUNE :</strong></td>
+                                            <td class="text-center">{{ vehicule.date_limite_assurance_carteBrune }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><strong>DATE LIMITE DES TAXES DU DISTRICT :</strong></td>
+                                            <td class="text-center">{{ vehicule.date_limite_taxe }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><strong>DATE LIMITE DU CERTIFICAT PROVISIORE DE VIGNETTE :</strong></td>
+                                            <td class="text-center">{{ vehicule.date_limite_certificatVignette }}</td>
+                                        </tr>
+
+                                        <tr>
                                             <td><strong>PLACES ASSISE :</strong></td>
                                             <td class="text-center">{% if vehicule.place_assises %} {{ vehicule.place_assises }} PLACES {% else %} AUCUNE {% endif %}</td>
                                         </tr>
@@ -195,6 +215,26 @@
                                             <img src="{{ image.images.url }}" alt="profile-img" class="vehicule-image mb-5" onclick="showImagePopup2('{{ image.images.url }}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
                                         {% endfor %}
 
+                                    </div>
+                                    <div style="margin-bottom: 25px">
+                                        <td>
+                                            <label style="display: block; text-align: center;">AUTRES PHOTOS DU VEHICULE</label>
+                                            {% if vehicule.image_taxe  %}
+                                                <img src="{{ vehicule.image_taxe.url}}" alt="profile-img" class="vehicule-image" onclick="showImagePopup('{{ vehicule.image_taxe.url}}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
+                                            {% endif  %}
+                                            {% if vehicule.image_recepisse  %}
+                                                <img src="{{ vehicule.image_recepisse.url}}" alt="profile-img" class="vehicule-image" onclick="showImagePopup1('{{ vehicule.image_recepisse.url}}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
+                                            {% endif  %}
+                                            {% if vehicule.image_rapport_identification  %}
+                                                <img src="{{ vehicule.image_rapport_identification.url}}" alt="profile-img" class="vehicule-image" onclick="showImagePopup1('{{ vehicule.image_rapport_identification.url}}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
+                                            {% endif  %}
+                                            {% if vehicule.image_attestation_assurance  %}
+                                                <img src="{{ vehicule.image_attestation_assurance.url}}" alt="profile-img" class="vehicule-image" onclick="showImagePopup1('{{ vehicule.image_attestation_assurance.url}}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
+                                            {% endif  %}
+                                            {% if vehicule.image_assurance_carte_brune  %}
+                                                <img src="{{ vehicule.image_assurance_carte_brune.url}}" alt="profile-img" class="vehicule-image" onclick="showImagePopup1('{{ vehicule.image_assurance_carte_brune.url}}')" style=" display: inline-block;white-space: nowrap;max-width: 20%; height: auto; margin-left: 150px; margin-top: 10px">
+                                            {% endif  %}
+                                        </td>
                                     </div>
                                 </div>
                             </div>
