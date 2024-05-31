@@ -145,7 +145,7 @@ class Vehicule(models.Model):
     date_mise_circulation = models.DateField(blank=True, null=True)
     carrosserie = models.CharField(max_length=100, blank=True, null=True)
     place_assises = models.IntegerField(blank=True, null=True)
-    date_expiration_assurance = models.DateField()
+    date_expiration_assurance = models.DateField()  # Attestation d'assurance
     kilometrage = models.IntegerField()
     image_recto = models.ImageField(upload_to='carteGrise/')
     image_verso = models.ImageField(upload_to='carteGrise/')
@@ -155,6 +155,15 @@ class Vehicule(models.Model):
     energie = models.ForeignKey(type_carburant, on_delete=models.SET_NULL, null=True)
     disponibilite = models.BooleanField(default=True)
     supprimer = models.BooleanField(default=False)
+    image_taxe = models.ImageField(upload_to='Autres/',blank=True, null=True)
+    image_recepisse = models.ImageField(upload_to='Autres/',blank=True, null=True)
+    image_rapport_identification = models.ImageField(upload_to='Autres/',blank=True, null=True)
+    image_attestation_assurance = models.ImageField(upload_to='Autres/',blank=True, null=True)
+    image_assurance_carte_brune = models.ImageField(upload_to='Autres/',blank=True, null=True)
+    date_limite_recepisse = models.DateField(blank=True, null=True)
+    date_limite_assurance_carteBrune = models.DateField(blank=True, null=True)
+    date_limite_taxe = models.DateField(blank=True, null=True)
+    date_limite_certificatVignette = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.marque} {self.type_commercial} {self.numero_immatriculation}"
