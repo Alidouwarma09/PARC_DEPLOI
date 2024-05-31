@@ -10,6 +10,27 @@ from Model.models import Demande_prolongement, EtatArrive, Incident, Deplacement
     Conducteur, Utilisateur
 
 
+def get_vehicules_proches_expiration(field_name):
+    date_actuelle = timezone.now().date()
+    une_semaine_plus_tard = date_actuelle + timedelta(days=7)
+    filter_kwargs = {f'{field_name}__lte': une_semaine_plus_tard}
+    vehicules_proches_expiration = Vehicule.objects.filter(**filter_kwargs)
+    vehicules_et_jours_restants = {}
+
+    for vehicule in vehicules_proches_expiration:
+        date_expiration = getattr(vehicule, field_name)
+        jours_restants = (date_expiration - date_actuelle).days
+        vehicules_et_jours_restants[vehicule] = {'jours_restants': jours_restants, 'photo': None}
+        try:
+            photo_vehicule = Photo.objects.filter(vehicule=vehicule).first()
+            if photo_vehicule:
+                vehicules_et_jours_restants[vehicule]['photo'] = photo_vehicule
+        except ObjectDoesNotExist:
+            pass
+
+    return vehicules_et_jours_restants
+
+
 def accueil_data(request):
     prolongements_non_lus = None
     if request.user.is_authenticated:
@@ -68,38 +89,69 @@ def accueil_data(request):
 
     vehicules_proches_vidange = {}
 
-    for vehiculee in vehicules_proches_vidanges:
-        if vehiculee:
-            vehicules_proches_vidange[vehiculee] = {'photo': None}
-        try:
-            photo_vehicule = Photo.objects.filter(vehicule=vehiculee).first()
-            if photo_vehicule:
-                vehicules_proches_vidange[vehiculee]['photo'] = photo_vehicule
-        except ObjectDoesNotExist:
-            pass
-
-    date_actuelle = timezone.now().date()
-    une_semaine_plus_tard = date_actuelle + timedelta(days=7)
-    vehicules_proches_expiration_technique = Vehicule.objects.filter(date_visite_technique__lte=une_semaine_plus_tard)
-    technique_compte = Vehicule.objects.filter(date_visite_technique__lte=une_semaine_plus_tard).count()
-    vehicules_et_jours_restants_technique = {}
-
-    for vehicule in vehicules_proches_expiration_technique:
-        jours_restants = (vehicule.date_visite_technique - date_actuelle).days
-        if jours_restants < 0:
-            vehicules_et_jours_restants_technique[vehicule] = {'jours_restants': -1, 'photo': None}
-        elif jours_restants == 0:
-            vehicules_et_jours_restants_technique[vehicule] = {'jours_restants': 0, 'photo': None}
-        else:
-            vehicules_et_jours_restants_technique[vehicule] = {'jours_restants': jours_restants, 'photo': None}
+    for vehicule in vehicules_proches_vidanges:
+        if vehicule:
+            if vehicule.kilometrage <= vehicule.videnge:
+                vehicules_proches_vidange[vehicule] = {'vidange': True, 'photo': None}
+            else:
+                vehicules_proches_vidange[vehicule] = {'update_required': True, 'photo': None}
         try:
             photo_vehicule = Photo.objects.filter(vehicule=vehicule).first()
             if photo_vehicule:
-                vehicules_et_jours_restants_technique[vehicule]['photo'] = photo_vehicule
+                vehicules_proches_vidange[vehicule]['photo'] = photo_vehicule
         except ObjectDoesNotExist:
             pass
 
-    totals = demande_compte + incidents_compte + assurance_compte + vidanges_compte + technique_compte
+
+    # date_actuelle = timezone.now().date()
+    # une_semaine_plus_tard = date_actuelle + timedelta(days=7)
+    # vehicules_proches_expiration_technique = Vehicule.objects.filter(date_visite_technique__lte=une_semaine_plus_tard)
+    # technique_compte = Vehicule.objects.filter(date_visite_technique__lte=une_semaine_plus_tard).count()
+    # vehicules_et_jours_restants_technique = {}
+    #
+    # for vehicule in vehicules_proches_expiration_technique:
+    #     jours_restants = (vehicule.date_visite_technique - date_actuelle).days
+    #     if jours_restants < 0:
+    #         vehicules_et_jours_restants_technique[vehicule] = {'jours_restants': -1, 'photo': None}
+    #     elif jours_restants == 0:
+    #         vehicules_et_jours_restants_technique[vehicule] = {'jours_restants': 0, 'photo': None}
+    #     else:
+    #         vehicules_et_jours_restants_technique[vehicule] = {'jours_restants': jours_restants, 'photo': None}
+    #     try:
+    #         photo_vehicule = Photo.objects.filter(vehicule=vehicule).first()
+    #         if photo_vehicule:
+    #             vehicules_et_jours_restants_technique[vehicule]['photo'] = photo_vehicule
+    #     except ObjectDoesNotExist:
+    #         pass
+
+    # Expiration de la visite technique
+    vehicules_expiration_technique = get_vehicules_proches_expiration('date_visite_technique')
+    technique_compte = Vehicule.objects.filter(date_visite_technique__lte=une_semaine_plus_tard).count()
+    #
+    # # Expiration du récépissé
+    vehicules_expiration_recepisse = get_vehicules_proches_expiration('date_limite_recepisse')
+    recepisse_compte = Vehicule.objects.filter(date_limite_recepisse__lte=une_semaine_plus_tard).count()
+    #
+    # # Expiration de l'assurance carte brune
+    vehicules_expiration_assurance_carteBrune = get_vehicules_proches_expiration('date_limite_assurance_carteBrune')
+    assurance_carteBrune_compte = Vehicule.objects.filter(
+        date_limite_assurance_carteBrune__lte=une_semaine_plus_tard).count()
+    #
+    # # Expiration de la taxe
+    vehicules_expiration_taxe = get_vehicules_proches_expiration('date_limite_taxe')
+    taxe_compte = Vehicule.objects.filter(date_limite_taxe__lte=une_semaine_plus_tard).count()
+    #
+    # # Expiration du certificat vignette
+    vehicules_expiration_certificatVignette = get_vehicules_proches_expiration('date_limite_certificatVignette')
+    certificatVignette_compte = Vehicule.objects.filter(
+        date_limite_certificatVignette__lte=une_semaine_plus_tard).count()
+    #
+    # # Expiration de l'attestation d'assurance
+    vehicules_expiration_attestation_assurance = get_vehicules_proches_expiration('date_expiration_assurance')
+    attestation_assurance_compte = Vehicule.objects.filter(
+        date_expiration_assurance__lte=une_semaine_plus_tard).count()
+
+    totals = demande_compte + incidents_compte + assurance_compte + vidanges_compte + technique_compte+assurance_carteBrune_compte+recepisse_compte+taxe_compte+certificatVignette_compte
 
     aujourd_hui = date.today()
     une_semaine_avant = aujourd_hui - timedelta(days=7)
@@ -146,9 +198,16 @@ def accueil_data(request):
     return {'demandes': demande, 'inciden': incidents, 'totals': totals, 'nombre_deplacement': nombre_deplacement,
             'nombre_deplacement_en_cours': nombre_deplacement_en_cours, 'nombre_prolongement': nombre_prolongement,
             'vehicules_et_jours_restants': vehicules_et_jours_restants,
-            'vehicules_et_jours_restants_technique': vehicules_et_jours_restants_technique,
+            'vehicules_et_jours_restants_technique': vehicules_expiration_technique,
             'vehicules_proches_vidange': vehicules_proches_vidange, 'nombre_incident_externe': nombre_incident_externe,
             'nombre_incident_interne': nombre_incident_interne, 'nombre_entretien': nombre_entretien,
             'nombre_carburant': nombre_carburant, 'nombre_etatarrive': nombre_etatarrive,
             'nombre_conducteurs': nombre_conducteurs, 'nombre_vehicule': nombre_vehicule,
-            'prolongements_non_lus': prolongements_non_lus}
+            'prolongements_non_lus': prolongements_non_lus,
+            'vehicules_et_jours_restants_recepisse': vehicules_expiration_recepisse,
+            'vehicules_et_jours_restants_assurance_carteBrune': vehicules_expiration_assurance_carteBrune,
+            'vehicules_et_jours_restants_taxe': vehicules_expiration_taxe,
+            'vehicules_et_jours_restants_certificatVignette': vehicules_expiration_certificatVignette,
+            'vehicules_et_jours_restants_attestation_assurance': vehicules_expiration_attestation_assurance,
+
+            }
