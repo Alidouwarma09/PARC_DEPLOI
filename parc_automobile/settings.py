@@ -93,20 +93,20 @@ WSGI_APPLICATION = 'parc_automobile.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'parc',
-#         'USER': 'postgres',
-#         'PASSWORD': '09102079Darius',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
 DATABASES = {
-    'default': dj_database_url.parse(config('DATABASE_URL'))
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'parcs',
+        'USER': 'postgres',
+        'PASSWORD': 'Pipi1306',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
+#
+# DATABASES = {
+#     'default': dj_database_url.parse(config('DATABASE_URL'))
+# }
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -156,3 +156,13 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'yaoivan2002@gmail.com'
 EMAIL_HOST_PASSWORD = 'hxvc ceru qaah ckps'
+
+# Twilio orange
+# TWILIO_ACCOUNT_SID = 'ACd7a9ea17e2f6e95d3643f060e0ff7b4c'
+# TWILIO_AUTH_TOKEN = '69568123a336fa4a25d89c11b055cf05'
+# TWILIO_PHONE_NUMBER = '+12283381637'
+
+# Twilio moov
+# TWILIO_ACCOUNT_SID = 'ACae45b26370b78b420bab616564b4a0a1'
+# TWILIO_AUTH_TOKEN = '61a7cf4b15040c4a93b344b230623c98'
+# TWILIO_PHONE_NUMBER = '+13312417910'
