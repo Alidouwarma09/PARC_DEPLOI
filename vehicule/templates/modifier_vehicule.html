@@ -138,6 +138,20 @@
                                             {% endif %}
                                         </div>
 
+                                        <div class="form-group col-md-12 {% if form.images.errors %}has-error{% endif %}">
+                                            <label for="customFile" class="font-weight-bold">Sélectionner les images du véhicule :</label>
+                                            <div class="form-control h-auto" style="border-radius: 10px">
+                                                <input multiple  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="customFile" name="images">
+                                            </div>
+                                            <small class="form-text text-muted">Vous ne pouvez sélectionner que 6 images maximum.</small>
+                                            {% if form.images.errors %}
+                                                <p class="help-block">Veuillez joindre une image</p>
+                                            {% endif %}
+                                            {% if form.images.errors %}
+                                                <p class="help-block">{{ form.images.errors.0 }}</p>
+                                            {% endif %}
+                                        </div>
+
                                     </div>
 
                                     <div class="col-12 col-md-6 col-lg-6">
@@ -201,6 +215,22 @@
                                             {% endif %}
                                         </div>
 
+                                        <div class="form-group col-md-12 {% if form.date_limite_assurance_carteBrune.errors %}has-error{% endif %}">
+                                            <label for="date_limite_assurance_carteBrune" class="font-weight-bold">Date limite de l'assurance carte brune :</label>
+                                            <input type="date" class="form-control" id="date_limite_assurance_carteBrune" placeholder="Date" name="date_limite_assurance_carteBrune" value="{% if form.date_limite_assurance_carteBrune.value %}{{ form.date_limite_assurance_carteBrune.value }}{% endif %}">
+                                            {% if form.date_limite_assurance_carteBrune.errors %}
+                                                <p class="help-block">{{ form.date_limite_assurance_carteBrune.errors.0 }}</p>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="form-group col-md-12 {% if form.date_limite_recepisse.errors %}has-error{% endif %}">
+                                            <label for="date_limite_recepisse" class="font-weight-bold">Date limite du recepisse :</label>
+                                            <input type="date" class="form-control" id="date_limite_recepisse" placeholder="Date" name="date_limite_recepisse" value="{% if form.date_limite_recepisse.value %}{{ form.date_limite_recepisse.value }}{% endif %}">
+                                            {% if form.date_limite_recepisse.errors %}
+                                                <p class="help-block">{{ form.date_limite_recepisse.errors.0 }}</p>
+                                            {% endif %}
+                                        </div>
+
                                             <div class="form-group col-md-12 {% if form.image_taxe.errors %}has-error{% endif %}">
                                                 <label for="image_taxe" class="font-weight-bold">Sélectionner l'image des taxes du district :</label>
                                                 <div class="form-control h-auto" style="border-radius: 10px">
@@ -220,38 +250,25 @@
                                                     <p class="help-block">Veuillez joindre une image</p>
                                                 {% endif %}
                                             </div>
-                                        <div class="form-group col-md-12 {% if form.image_assurance_carte_brune.errors %}has-error{% endif %}">
-                                                <label for="image_assurance_carte_brune" class="font-weight-bold">Sélectionner l'image de l'assurance carte brune :</label>
-                                                <div class="form-control h-auto" style="border-radius: 10px">
-                                                    <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_assurance_carte_brune" name="image_assurance_carte_brune">
-                                                </div>
-                                                {% if form.image_assurance_carte_brune.errors %}
-                                                    <p class="help-block">Veuillez joindre une image</p>
-                                                {% endif %}
+
+                                            <div class="form-group col-md-12 {% if form.image_assurance_carte_brune.errors %}has-error{% endif %}">
+                                                    <label for="image_assurance_carte_brune" class="font-weight-bold">Sélectionner l'image de l'assurance carte brune :</label>
+                                                    <div class="form-control h-auto" style="border-radius: 10px">
+                                                        <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_assurance_carte_brune" name="image_assurance_carte_brune">
+                                                    </div>
+                                                    {% if form.image_assurance_carte_brune.errors %}
+                                                        <p class="help-block">Veuillez joindre une image</p>
+                                                    {% endif %}
                                             </div>
 
-                                        <div class="form-group col-md-12 {% if form.image_verso.errors %}has-error{% endif %}">
-                                            <label for="image_verso" class="font-weight-bold">Modifier l'image verso de la carte grise :</label>
-                                            <div class="form-control h-auto" style="border-radius: 10px">
-                                                <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_verso" name="image_verso">
-                                            </div>
-                                            {% if form.image_verso.errors %}
-
-                                                <p class="help-block">Veuillez joindre une image</p>
-                                            {% endif %}
-                                        </div>
-
-                                                                                <div class="form-group col-md-12 {% if form.images.errors %}has-error{% endif %}">
-                                                <label for="customFile" class="font-weight-bold">Sélectionner les images du véhicule :</label>
+                                            <div class="form-group col-md-12 {% if form.image_verso.errors %}has-error{% endif %}">
+                                                <label for="image_verso" class="font-weight-bold">Modifier l'image verso de la carte grise :</label>
                                                 <div class="form-control h-auto" style="border-radius: 10px">
-                                                    <input multiple  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="customFile" name="images">
+                                                    <input  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="image_verso" name="image_verso">
                                                 </div>
-                                                <small class="form-text text-muted">Vous ne pouvez sélectionner que 6 images maximum.</small>
-                                                {% if form.images.errors %}
+                                                {% if form.image_verso.errors %}
+
                                                     <p class="help-block">Veuillez joindre une image</p>
-                                                {% endif %}
-                                                {% if form.images.errors %}
-                                                    <p class="help-block">{{ form.images.errors.0 }}</p>
                                                 {% endif %}
                                             </div>
                                     </div>
