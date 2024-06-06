@@ -1,5 +1,7 @@
 # models.py
 # import uuid
+import os
+import re
 from datetime import timedelta
 
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
@@ -9,7 +11,106 @@ from django.dispatch import receiver
 from django.utils import timezone
 from django.db import models
 from django.utils.timesince import timesince
+import unicodedata
 
+def remove_accents(value):
+    """
+    Remplace les caractères accentués par leur équivalent non accentué.
+    """
+    return ''.join(char for char in unicodedata.normalize('NFD', value) if unicodedata.category(char) != 'Mn')
+
+
+def remove_special_characters(value):
+    """
+    Remplace les caractères spéciaux et les caractères accentués par des caractères alphanumériques.
+    """
+    # Supprime les caractères spéciaux autres que les lettres alphabétiques (majuscules et minuscules) et les chiffres
+    value = re.sub(r'[^a-zA-Z0-9_\-.]', '_', value)
+    return value
+
+
+def rename_image(instance, filename):
+    """
+    Fonction de renommage des images.
+    """
+    base_filename, file_extension = os.path.splitext(filename)
+    base_filename = remove_accents(base_filename)
+    new_filename = remove_special_characters(base_filename) + file_extension
+    return f'carteGrise/{new_filename}'
+
+
+def rename_photo(instance, filename):
+    """
+    Fonction de renommage des images.
+    """
+    base_filename, file_extension = os.path.splitext(filename)
+    base_filename = remove_accents(base_filename)
+    new_filename = remove_special_characters(base_filename) + file_extension
+    return f'Images/{new_filename}'
+
+
+def rename_photo_jauge(instance, filename):
+    """
+    Fonction de renommage des images.
+    """
+    base_filename, file_extension = os.path.splitext(filename)
+    base_filename = remove_accents(base_filename)
+    new_filename = remove_special_characters(base_filename) + file_extension
+    return f'photo_jauge/{new_filename}'
+
+def rename_jaugeDemandeProlongement(instance, filename):
+    """
+    Fonction de renommage des images.
+    """
+    base_filename, file_extension = os.path.splitext(filename)
+    base_filename = remove_accents(base_filename)
+    new_filename = remove_special_characters(base_filename) + file_extension
+    return f'jaugeDemandeProlongement/{new_filename}'
+
+def jaugeArrive(instance, filename):
+    """
+    Fonction de renommage des images.
+    """
+    base_filename, file_extension = os.path.splitext(filename)
+    base_filename = remove_accents(base_filename)
+    new_filename = remove_special_characters(base_filename) + file_extension
+    return f'jaugeArrive/{new_filename}'
+
+def ImagesGestionnaire(instance, filename):
+    """
+    Fonction de renommage des images.
+    """
+    base_filename, file_extension = os.path.splitext(filename)
+    base_filename = remove_accents(base_filename)
+    new_filename = remove_special_characters(base_filename) + file_extension
+    return f'ImagesGestionnaire/{new_filename}'
+
+def recu(instance, filename):
+    """
+    Fonction de renommage des images.
+    """
+    base_filename, file_extension = os.path.splitext(filename)
+    base_filename = remove_accents(base_filename)
+    new_filename = remove_special_characters(base_filename) + file_extension
+    return f'recu/{new_filename}'
+
+def Autres(instance, filename):
+    """
+    Fonction de renommage des images.
+    """
+    base_filename, file_extension = os.path.splitext(filename)
+    base_filename = remove_accents(base_filename)
+    new_filename = remove_special_characters(base_filename) + file_extension
+    return f'Autres/{new_filename}'
+
+def ImagesConducteur(instance, filename):
+    """
+    Fonction de renommage des images.
+    """
+    base_filename, file_extension = os.path.splitext(filename)
+    base_filename = remove_accents(base_filename)
+    new_filename = remove_special_characters(base_filename) + file_extension
+    return f'ImagesConducteur/{new_filename}'
 
 class MyUserManager(BaseUserManager):
     def create_user(self, username, password=None):
@@ -83,7 +184,7 @@ class Conducteur(models.Model):
     adresse = models.CharField(blank=True, max_length=20)
     disponibilite = models.BooleanField(default=True)
     num_cni = models.CharField(max_length=250, unique=True)
-    image = models.ImageField(upload_to='ImagesConducteur/', null=True, blank=True)
+    image = models.ImageField(upload_to=ImagesConducteur, null=True, blank=True)
     supprimer = models.BooleanField(default=False)
 
     def __str__(self):
@@ -110,7 +211,7 @@ class Utilisateur(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
-    image = models.ImageField(upload_to='ImagesGestionnaire/', null=True, blank=True)
+    image = models.ImageField(upload_to=ImagesGestionnaire, null=True, blank=True)
     USERNAME_FIELD = 'username'
     objects = MyUserManager()
 
@@ -133,6 +234,7 @@ class Type_Commerciale(models.Model):
         return self.modele
 
 
+
 class Vehicule(models.Model):
     date_mise_a_jour = models.DateTimeField(verbose_name="Date de mise a jour", auto_now=True)
     utilisateur = models.ForeignKey(Utilisateur, on_delete=models.SET_NULL, null=True, blank=True)
@@ -147,19 +249,19 @@ class Vehicule(models.Model):
     place_assises = models.IntegerField(blank=True, null=True)
     date_expiration_assurance = models.DateField()  # Attestation d'assurance
     kilometrage = models.IntegerField()
-    image_recto = models.ImageField(upload_to='carteGrise/')
-    image_verso = models.ImageField(upload_to='carteGrise/')
+    image_recto = models.ImageField(upload_to=rename_image)
+    image_verso = models.ImageField(upload_to=rename_image)
     date_visite_technique = models.DateField()
     taille_reservoir = models.IntegerField()
     videnge = models.IntegerField()
     energie = models.ForeignKey(type_carburant, on_delete=models.SET_NULL, null=True)
     disponibilite = models.BooleanField(default=True)
     supprimer = models.BooleanField(default=False)
-    image_taxe = models.ImageField(upload_to='Autres/',blank=True, null=True)
-    image_recepisse = models.ImageField(upload_to='Autres/',blank=True, null=True)
-    image_rapport_identification = models.ImageField(upload_to='Autres/',blank=True, null=True)
-    image_attestation_assurance = models.ImageField(upload_to='Autres/',blank=True, null=True)
-    image_assurance_carte_brune = models.ImageField(upload_to='Autres/',blank=True, null=True)
+    image_taxe = models.ImageField(upload_to=Autres, blank=True, null=True)
+    image_recepisse = models.ImageField(upload_to=Autres, blank=True, null=True)
+    image_rapport_identification = models.ImageField(upload_to=Autres, blank=True, null=True)
+    image_attestation_assurance = models.ImageField(upload_to=Autres, blank=True, null=True)
+    image_assurance_carte_brune = models.ImageField(upload_to=Autres, blank=True, null=True)
     date_limite_recepisse = models.DateField(blank=True, null=True)
     date_limite_assurance_carteBrune = models.DateField(blank=True, null=True)
     date_limite_taxe = models.DateField(blank=True, null=True)
@@ -194,7 +296,7 @@ class Deplacement(models.Model):
     date_depart = models.DateField(blank=True, null=True)
     kilometrage_depart = models.IntegerField(null=True, blank=True)
     duree_deplacement = models.IntegerField()
-    photo_jauge_depart = models.ImageField(upload_to='photo_jauge/', blank=False)
+    photo_jauge_depart = models.ImageField(upload_to=rename_photo_jauge, blank=False)
     description = models.CharField(max_length=100, null=True)
 
     def date_fin(self):
@@ -255,7 +357,7 @@ class Demande_prolongement(models.Model):
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
     kilometrage = models.IntegerField()
     lu = models.BooleanField(default=False)
-    photo_jauge_demande = models.ImageField(upload_to='jaugeDemandeProlongement/', null=True, blank=True)
+    photo_jauge_demande = models.ImageField(upload_to=rename_jaugeDemandeProlongement, null=True, blank=True)
     date_premiere = models.DateField(auto_now_add=True, null=True)
     motif_refus = models.CharField(max_length=250, blank=True, null=True)
 
@@ -290,7 +392,7 @@ class Entretien(models.Model):
     prix_entretient = models.IntegerField()
     description = models.TextField(blank=True)
     type = models.ForeignKey(type_entretien, on_delete=models.SET_NULL, null=True)
-    recu = models.ImageField(upload_to='recu/', blank=False)
+    recu = models.ImageField(upload_to=recu, blank=False)
 
 
 class EtatArrive(models.Model):
@@ -301,7 +403,7 @@ class EtatArrive(models.Model):
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, blank=True, null=True)
     kilometrage_arrive = models.IntegerField()
     date_arrive = models.DateField(auto_now=True)
-    photo_jauge_arrive = models.ImageField(upload_to='jaugeArrive/', null=True, blank=True)
+    photo_jauge_arrive = models.ImageField(upload_to=jaugeArrive, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if self.date_arrive:
@@ -322,7 +424,7 @@ class Incident(models.Model):
 
 class Photo(models.Model):
     vehicule = models.ForeignKey(Vehicule, on_delete=models.SET_NULL, null=True)
-    images = models.ImageField(upload_to='Images/', null=True, blank=True)
+    images = models.ImageField(upload_to=rename_photo, null=True, blank=True)
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, blank=True, null=True)
     incident = models.ForeignKey(Incident, on_delete=models.SET_NULL, blank=True, null=True)
     demande_prolongement = models.ForeignKey(Demande_prolongement, on_delete=models.SET_NULL, blank=True, null=True)

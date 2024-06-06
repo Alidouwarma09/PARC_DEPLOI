@@ -137,9 +137,19 @@ def modifier_vehicule(request, pk):
             return redirect('vehicule:liste_vehicules')
     else:
         form = VehiculeModifierForm(instance=vehicule, initial={
-            'date_mise_circulation': vehicule.date_mise_circulation.strftime('%Y-%m-%d') if vehicule.date_mise_circulation else None,
-            'date_expiration_assurance': vehicule.date_expiration_assurance.strftime('%Y-%m-%d') if vehicule.date_expiration_assurance else None,
-            'date_visite_technique': vehicule.date_visite_technique.strftime('%Y-%m-%d') if vehicule.date_visite_technique else None,
+            'date_mise_circulation': vehicule.date_mise_circulation.strftime(
+                '%Y-%m-%d') if vehicule.date_mise_circulation else None,
+            'date_expiration_assurance': vehicule.date_expiration_assurance.strftime(
+                '%Y-%m-%d') if vehicule.date_expiration_assurance else None,
+            'date_visite_technique': vehicule.date_visite_technique.strftime(
+                '%Y-%m-%d') if vehicule.date_visite_technique else None,
+            'date_limite_assurance_carteBrune': vehicule.date_limite_assurance_carteBrune.strftime(
+                '%Y-%m-%d') if vehicule.date_limite_assurance_carteBrune else None,
+            'date_limite_recepisse': vehicule.date_limite_recepisse.strftime(
+                '%Y-%m-%d') if vehicule.date_limite_recepisse else None,
+            'date_limite_certificatVignette': vehicule.date_limite_certificatVignette.strftime(
+                '%Y-%m-%d') if vehicule.date_limite_certificatVignette else None,
+            'date_limite_taxe': vehicule.date_limite_taxe.strftime('%Y-%m-%d') if vehicule.date_limite_taxe else None,
             'energie': vehicule.energie if vehicule.energie else None
         })
 
