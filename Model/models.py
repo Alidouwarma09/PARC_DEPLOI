@@ -13,6 +13,7 @@ from django.db import models
 from django.utils.timesince import timesince
 import unicodedata
 
+
 def remove_accents(value):
     """
     Remplace les caractères accentués par leur équivalent non accentué.
@@ -58,6 +59,7 @@ def rename_photo_jauge(instance, filename):
     new_filename = remove_special_characters(base_filename) + file_extension
     return f'photo_jauge/{new_filename}'
 
+
 def rename_jaugeDemandeProlongement(instance, filename):
     """
     Fonction de renommage des images.
@@ -66,6 +68,7 @@ def rename_jaugeDemandeProlongement(instance, filename):
     base_filename = remove_accents(base_filename)
     new_filename = remove_special_characters(base_filename) + file_extension
     return f'jaugeDemandeProlongement/{new_filename}'
+
 
 def jaugeArrive(instance, filename):
     """
@@ -76,6 +79,7 @@ def jaugeArrive(instance, filename):
     new_filename = remove_special_characters(base_filename) + file_extension
     return f'jaugeArrive/{new_filename}'
 
+
 def ImagesGestionnaire(instance, filename):
     """
     Fonction de renommage des images.
@@ -84,6 +88,7 @@ def ImagesGestionnaire(instance, filename):
     base_filename = remove_accents(base_filename)
     new_filename = remove_special_characters(base_filename) + file_extension
     return f'ImagesGestionnaire/{new_filename}'
+
 
 def recu(instance, filename):
     """
@@ -94,6 +99,7 @@ def recu(instance, filename):
     new_filename = remove_special_characters(base_filename) + file_extension
     return f'recu/{new_filename}'
 
+
 def Autres(instance, filename):
     """
     Fonction de renommage des images.
@@ -103,6 +109,7 @@ def Autres(instance, filename):
     new_filename = remove_special_characters(base_filename) + file_extension
     return f'Autres/{new_filename}'
 
+
 def ImagesConducteur(instance, filename):
     """
     Fonction de renommage des images.
@@ -111,6 +118,7 @@ def ImagesConducteur(instance, filename):
     base_filename = remove_accents(base_filename)
     new_filename = remove_special_characters(base_filename) + file_extension
     return f'ImagesConducteur/{new_filename}'
+
 
 class MyUserManager(BaseUserManager):
     def create_user(self, username, password=None):
@@ -130,6 +138,25 @@ class MyUserManager(BaseUserManager):
         user.is_staff = True
         user.is_superuser = True
         user.save()
+        return user
+
+    def create_admin(self, username, email, nom, prenom, roles, password=None):
+        if not username:
+            raise ValueError("Vous devez entrer un nom d'utilisateur")
+        if not email:
+            raise ValueError("Vous devez entrer un email")
+
+        user = self.model(
+            username=username,
+            email=self.normalize_email(email),
+            nom=nom,
+            prenom=prenom,
+            roles=roles
+        )
+        user.set_password(password)
+        user.is_staff = True
+        user.is_admin = True
+        user.save(using=self._db)
         return user
 
 
@@ -232,7 +259,6 @@ class Type_Commerciale(models.Model):
 
     def __str__(self):
         return self.modele
-
 
 
 class Vehicule(models.Model):
