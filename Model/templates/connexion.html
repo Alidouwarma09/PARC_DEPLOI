@@ -15,7 +15,7 @@
                 <div class="col-sm-6 align-self-center">
                     <div class="sign-in-from">
                         <h1 class="mb-0 dark-signin">Se Connecter <i class="bi bi-person-circle"></i></h1>
-                        <p class="lead" style="font-size: 15px">Entrer votre Nom d'utilisateur et votre mot de passe pour accéder à votre Espace.</p>
+                        <p class="lead" style="font-size: 15px; color: #e34c00" >Entrer votre Nom d'utilisateur et votre mot de passe pour accéder à votre Espace.</p>
                         <form class="mt-4" method="POST">
                             {% csrf_token %}
                             <div class="form-group">
@@ -27,8 +27,8 @@
                                 <input type="password" class="form-control mb-0 w-75" id="exampleInputPassword1" name="password" placeholder="Mot de passe :">
                             </div>
 {#                            <a href="{% url 'utilisateur:password_reset' %}" class="lead" id="forgetPassword" style="font-size: 15px" >Mot de passe oublié ?</a>#}
-                            <div class="text-center w-100 mt-5">
-                                <button type="submit" class="btn btn-primary btn-lg" style="font-size: 20px; padding: 8px 16px;">Connexion</button>
+                            <div class="text-center w-100 mt-5 " >
+                                <button type="submit" class="btn btn-primary btn-lg " style="font-size: 20px; width: 60%; padding: 8px 16px; background-color: rgba(6, 18, 89, 0.9)">Connexion</button>
                             </div>
                             {% include 'messaging.html' %}
 
