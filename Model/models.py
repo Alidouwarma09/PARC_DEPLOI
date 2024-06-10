@@ -131,6 +131,25 @@ class MyUserManager(BaseUserManager):
         user.is_superuser = True
         user.save()
         return user
+    
+    def create_admin(self, username, email, nom, prenom, roles, password=None):
+        if not username:
+            raise ValueError("Vous devez entrer un nom d'utilisateur")
+        if not email:
+            raise ValueError("Vous devez entrer un email")
+
+        user = self.model(
+            username=username,
+            email=self.normalize_email(email),
+            nom=nom,
+            prenom=prenom,
+            roles=roles
+        )
+        user.set_password(password)
+        user.is_staff = True
+        user.is_admin = True
+        user.save(using=self._db)
+        return user
 
 
 class Roles(models.Model):
