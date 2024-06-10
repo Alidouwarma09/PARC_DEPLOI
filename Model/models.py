@@ -159,25 +159,6 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_admin(self, username, email, nom, prenom, roles, password=None):
-        if not username:
-            raise ValueError("Vous devez entrer un nom d'utilisateur")
-        if not email:
-            raise ValueError("Vous devez entrer un email")
-
-        user = self.model(
-            username=username,
-            email=self.normalize_email(email),
-            nom=nom,
-            prenom=prenom,
-            roles=roles
-        )
-        user.set_password(password)
-        user.is_staff = True
-        user.is_admin = True
-        user.save(using=self._db)
-        return user
-
 
 class Roles(models.Model):
     ADMIN = 'ADMIN'
@@ -288,14 +269,14 @@ class Vehicule(models.Model):
     type_commercial = models.ForeignKey(Type_Commerciale, on_delete=models.CASCADE)
     numero_chassis = models.CharField(max_length=25, unique=True)
     couleur = models.CharField(max_length=20, blank=True, null=True)
-    carte_grise = models.CharField(max_length=25, unique=True)
+    carte_grise = models.CharField(max_length=25, unique=True, blank=True, null=True)
     date_mise_circulation = models.DateField(blank=True, null=True)
     carrosserie = models.CharField(max_length=100, blank=True, null=True)
     place_assises = models.IntegerField(blank=True, null=True)
     date_expiration_assurance = models.DateField()  # Attestation d'assurance
     kilometrage = models.IntegerField()
-    image_recto = models.ImageField(upload_to=rename_image)
-    image_verso = models.ImageField(upload_to=rename_image)
+    image_recto = models.ImageField(upload_to=rename_image, blank=True, null=True)
+    image_verso = models.ImageField(upload_to=rename_image, blank=True, null=True)
     date_visite_technique = models.DateField()
     taille_reservoir = models.IntegerField()
     videnge = models.IntegerField()
