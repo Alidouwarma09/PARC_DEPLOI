@@ -118,7 +118,7 @@
                                                     <div class="media-body ml-3">
                                                         <h6 class="mb-0">{{ vehicule.marque }} - {{ vehicule.numero_immatriculation }}</h6>
                                                         <!-- Afficher les jours restants avant l'expiration de l'assurance -->
-                                                        {% if info.jours_restants == -1 %}
+                                                        {% if info.jours_restants <= -1 %}
                                                             <p class="mb-0">Date d'expiration de l'assurance passée, mettez à jour la nouvelle date  </p>
                                                         {% elif info.jours_restants == 0 %}
                                                             <p class="mb-0"> Assurance expire aujourd'hui  </p>
@@ -147,7 +147,7 @@
                                                     {% endif %}
                                                     <div class="media-body ml-3">
                                                         <h6 class="mb-0">{{ vehicule.marque }} - {{ vehicule.numero_immatriculation }}</h6>
-                                                        {% if info.jours_restants == -1 %}
+                                                        {% if info.jours_restants <= -1 %}
                                                             <p class="mb-0">Date visite technique passée, mettez à jour la nouvelle date</p>
                                                         {% elif info.jours_restants == 0 %}
                                                             <p class="mb-0">Visite technique aujourd'hui</p>
@@ -178,7 +178,7 @@
                                                     {% endif %}
                                                     <div class="media-body ml-3">
                                                         <h6 class="mb-0">{{ vehicule.marque }} - {{ vehicule.numero_immatriculation }}</h6>
-                                                        {% if info.jours_restants == -1 %}
+                                                        {% if info.jours_restants <= -1 %}
                                                             <p class="mb-0">Date récépissé passée, mettez à jour la nouvelle date</p>
                                                         {% elif info.jours_restants == 0 %}
                                                             <p class="mb-0">Récépissé expire aujourd'hui</p>
@@ -209,7 +209,7 @@
                                                     {% endif %}
                                                     <div class="media-body ml-3">
                                                         <h6 class="mb-0">{{ vehicule.marque }} - {{ vehicule.numero_immatriculation }}</h6>
-                                                        {% if info.jours_restants == -1 %}
+                                                        {% if info.jours_restants <= -1 %}
                                                             <p class="mb-0">Date d'assurance carte brune passée, mettez à jour la nouvelle date</p>
                                                         {% elif info.jours_restants == 0 %}
                                                             <p class="mb-0">Assurance carte brune expire aujourd'hui</p>
@@ -240,7 +240,7 @@
                                                     {% endif %}
                                                     <div class="media-body ml-3">
                                                         <h6 class="mb-0">{{ vehicule.marque }} - {{ vehicule.numero_immatriculation }}</h6>
-                                                        {% if info.jours_restants == -1 %}
+                                                        {% if info.jours_restants <= -1 %}
                                                             <p class="mb-0">Date de taxe passée, mettez à jour la nouvelle date</p>
                                                         {% elif info.jours_restants == 0 %}
                                                             <p class="mb-0">Taxe expire aujourd'hui</p>
@@ -271,7 +271,7 @@
                                                     {% endif %}
                                                     <div class="media-body ml-3">
                                                         <h6 class="mb-0">{{ vehicule.marque }} - {{ vehicule.numero_immatriculation }}</h6>
-                                                        {% if info.jours_restants == -1 %}
+                                                        {% if info.jours_restants <= -1 %}
                                                             <p class="mb-0">Date du certificat vignette passée, mettez à jour la nouvelle date</p>
                                                         {% elif info.jours_restants == 0 %}
                                                             <p class="mb-0">Certificat vignette expire aujourd'hui</p>
@@ -302,7 +302,7 @@
                                                     {% endif %}
                                                     <div class="media-body ml-3">
                                                         <h6 class="mb-0">{{ vehicule.marque }} - {{ vehicule.numero_immatriculation }}</h6>
-                                                        {% if info.jours_restants == -1 %}
+                                                        {% if info.jours_restants <= -1 %}
                                                             <p class="mb-0">Date d'attestation d'assurance passée, mettez à jour la nouvelle date</p>
                                                         {% elif info.jours_restants == 0 %}
                                                             <p class="mb-0">Attestation d'assurance expire aujourd'hui</p>
