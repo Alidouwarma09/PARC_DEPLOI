@@ -5,7 +5,9 @@ from django.http import HttpResponse
 from django.utils import timezone
 from datetime import timedelta
 
-from django.db.models import Subquery, Q, F
+from django.db.models import Subquery, Q, F, Empty
+from pyasn1.compat.octets import null
+
 from Model.models import Demande_prolongement, EtatArrive, Incident, Deplacement, Vehicule, Photo, Entretien, Carburant, \
     Conducteur, Utilisateur
 
@@ -102,7 +104,6 @@ def accueil_data(request):
         except ObjectDoesNotExist:
             pass
 
-
     # date_actuelle = timezone.now().date()
     # une_semaine_plus_tard = date_actuelle + timedelta(days=7)
     # vehicules_proches_expiration_technique = Vehicule.objects.filter(date_visite_technique__lte=une_semaine_plus_tard)
@@ -151,7 +152,7 @@ def accueil_data(request):
     attestation_assurance_compte = Vehicule.objects.filter(
         date_expiration_assurance__lte=une_semaine_plus_tard).count()
 
-    totals = demande_compte + incidents_compte + assurance_compte + vidanges_compte + technique_compte+assurance_carteBrune_compte+recepisse_compte+taxe_compte+certificatVignette_compte
+    totals = demande_compte + incidents_compte + assurance_compte + vidanges_compte + technique_compte + assurance_carteBrune_compte + recepisse_compte + taxe_compte + certificatVignette_compte
 
     aujourd_hui = date.today()
     une_semaine_avant = aujourd_hui - timedelta(days=7)
@@ -194,6 +195,10 @@ def accueil_data(request):
                         deplacement=deplacement).exists():
                     vehicule.disponibilite = False
                     vehicule.save()
+    for vehicule in vehicules:
+        if vehicule.carte_grise:
+            vehicule.date_limite_recepisse = None
+            vehicule.save()
 
     return {'demandes': demande, 'inciden': incidents, 'totals': totals, 'nombre_deplacement': nombre_deplacement,
             'nombre_deplacement_en_cours': nombre_deplacement_en_cours, 'nombre_prolongement': nombre_prolongement,
