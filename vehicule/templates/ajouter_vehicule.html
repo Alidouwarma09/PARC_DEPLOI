@@ -247,10 +247,10 @@
                                                 {% endif %}
                                                 <p class="help-block error-message" id="error-date_limite_assurance_carteBrune"></p>
                                             </div>
-                                        <div>
-                                            <button type="button" class="btn btn-primary float-right" onclick="nextStep(4)">Suivant</button>
-                                            <button type="button" class="btn btn-primary float-left" onclick="prevStep(2)">Précédent</button>
-                                        </div>
+                                            <div>
+                                                <button type="button" class="btn btn-primary float-right" onclick="nextStep(4)">Suivant</button>
+                                                <button type="button" class="btn btn-primary float-left" onclick="prevStep(2)">Précédent</button>
+                                            </div>
                                         </div>
 
                                         <div id="step-4" class="col-12 col-md-6 col-lg-6" style="display: none;">
@@ -891,6 +891,7 @@
                 let date_limite_assurance_carteBrune = document.getElementById('date_limite_assurance_carteBrune').value;
                 let date_expiration_assurance = document.getElementById('date_expiration_assurance').value;
                 let date_limite_taxe = document.getElementById('date_limite_taxe').value;
+                let documentType = document.getElementById('document').value;
                 let date_limite_certificatVignette = document.getElementById('date_limite_certificatVignette').value;
                 if (date_visite_technique === "") {
                     isValid = false;
@@ -910,7 +911,7 @@
                 } else {
                     document.getElementById('error-date_limite_assurance_carteBrune').innerText = "";
                 }
-                if (document.getElementById('recepisse').style.display !== 'none' && date_limite_recepisse === "") {
+                if (documentType === "recipisse" && date_limite_recepisse === "") {
                     isValid = false;
                     document.getElementById('error-date_limite_recepisse').innerText = "Veuillez entrer une date limite de récépissé.";
                 } else {
@@ -963,24 +964,24 @@
 
 
         function updateRequiredStatus() {
-        // Récupérer tous les champs input concernés
-        var inputFields = document.querySelectorAll('#step-4 input[type="file"]');
+            // Récupérer tous les champs input concernés
+            var inputFields = document.querySelectorAll('#step-4 input[type="file"]');
 
-        // Parcourir chaque champ input
-        inputFields.forEach(function(input) {
-            // Récupérer le div parent
-            var parentDiv = input.closest('.form-group');
+            // Parcourir chaque champ input
+            inputFields.forEach(function(input) {
+                // Récupérer le div parent
+                var parentDiv = input.closest('.form-group');
 
-            // Vérifier si le div parent a l'attribut hidden
-            if (parentDiv && parentDiv.hasAttribute('hidden')) {
-                // Si caché, retirer l'attribut required s'il existe
-                input.removeAttribute('required');
-            } else {
-                // Si non caché, ajouter l'attribut required
-                input.setAttribute('required', '');
-            }
-        });
-    }
+                // Vérifier si le div parent a l'attribut hidden
+                if (parentDiv && parentDiv.hasAttribute('hidden')) {
+                    // Si caché, retirer l'attribut required s'il existe
+                    input.removeAttribute('required');
+                } else {
+                    // Si non caché, ajouter l'attribut required
+                    input.setAttribute('required', '');
+                }
+            });
+        }
 
     </script>
 
