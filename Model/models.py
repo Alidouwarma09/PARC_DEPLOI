@@ -293,6 +293,7 @@ class Vehicule(models.Model):
     date_limite_taxe = models.DateField(blank=True, null=True)
     date_limite_certificatVignette = models.DateField(blank=True, null=True)
 
+
     def __str__(self):
         return f"{self.marque} {self.type_commercial} {self.numero_immatriculation}"
 
@@ -324,6 +325,9 @@ class Deplacement(models.Model):
     duree_deplacement = models.IntegerField()
     photo_jauge_depart = models.ImageField(upload_to=rename_photo_jauge, blank=False)
     description = models.CharField(max_length=100, null=True)
+    lieu_depart = models.CharField(blank=True, null=True)
+    lieu_arrive = models.CharField(blank=True, null=True)
+    distance = models.IntegerField(blank=True, null=True)
 
     def date_fin(self):
         if self.date_depart:

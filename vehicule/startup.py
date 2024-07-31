@@ -9,7 +9,7 @@ from twilio.rest import Client
 
 
 def envoyer_emails_assurance_vehicules():
-    destinaires = ["infos@glaroche.com"]
+    destinaires = ["azertyazerty1ze@gmail.com"]
     date_actuelle = datetime.now().date()
     une_semaine_plus_tard = date_actuelle + timedelta(days=3)
 
@@ -64,7 +64,7 @@ def envoyer_emails_assurance_vehicules():
 
 
 def envoyer_emails_visite_vehicules():
-    destinaires = ["infos@glaroche.com"]
+    destinaires = ["azertyazerty1ze@gmail.com"]
     date_actuelle = datetime.now().date()
     une_demi_semaine_plus_tard = date_actuelle + timedelta(days=3)
 
@@ -122,7 +122,7 @@ def envoyer_emails_visite_vehicules():
 
 
 def envoyer_emails_vehicules_proches_vidange():
-    destinaires = ["infos@glaroche.com"]
+    destinaires = ["azertyazerty1ze@gmail.com"]
     vehicules_proches_vidanges = Vehicule.objects.filter(kilometrage__lte=F('videnge') - 100)
     vehicules_vidanges = Vehicule.objects.filter(kilometrage__gte=F('videnge'))
     if vehicules_proches_vidanges.exists():
@@ -168,7 +168,7 @@ def envoyer_emails_vehicules_proches_vidange():
 
 
 def envoyer_emails_recepisse_vehicules():
-    destinaires = ["infos@glaroche.com"]
+    destinaires = ["azertyazerty1ze@gmail.com"]
     date_actuelle = datetime.now().date()
     une_semaine_plus_tard = date_actuelle + timedelta(days=3)
 
@@ -224,7 +224,7 @@ def envoyer_emails_recepisse_vehicules():
 
 
 def envoyer_emails_assurance_carteBrune_vehicules():
-    destinaires = ["infos@glaroche.com"]
+    destinaires = ["azertyazerty1ze@gmail.com"]
     date_actuelle = datetime.now().date()
     une_semaine_plus_tard = date_actuelle + timedelta(days=3)
 
@@ -283,7 +283,7 @@ def envoyer_emails_assurance_carteBrune_vehicules():
 
 
 def envoyer_emails_taxe_vehicules():
-    destinaires = ["infos@glaroche.com"]
+    destinaires = ["azertyazerty1ze@gmail.com"]
     date_actuelle = datetime.now().date()
     une_semaine_plus_tard = date_actuelle + timedelta(days=3)
 
@@ -342,7 +342,7 @@ def envoyer_emails_taxe_vehicules():
 
 
 def envoyer_emails_certificatVignette_vehicules():
-    destinaires = ["infos@glaroche.com"]
+    destinaires = ["azertyazerty1ze@gmail.com"]
     date_actuelle = datetime.now().date()
     une_semaine_plus_tard = date_actuelle + timedelta(days=3)
 
@@ -452,8 +452,8 @@ def envoyer_emails_certificatVignette_vehicules():
 #
 
 def start_scheduler():
-    target_hour = 10
-    target_minute = 00
+    target_hour = 8
+    target_minute = 39
     while True:
         now = datetime.now()
         if now.hour == target_hour and now.minute == target_minute:

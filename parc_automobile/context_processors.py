@@ -6,7 +6,6 @@ from django.utils import timezone
 from datetime import timedelta
 
 from django.db.models import Subquery, Q, F, Empty
-from pyasn1.compat.octets import null
 
 from Model.models import Demande_prolongement, EtatArrive, Incident, Deplacement, Vehicule, Photo, Entretien, Carburant, \
     Conducteur, Utilisateur

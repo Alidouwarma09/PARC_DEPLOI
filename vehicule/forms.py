@@ -191,6 +191,7 @@ class VehiculeForm(forms.ModelForm):
         })
 
 
+
 class VehiculeModifierForm(forms.ModelForm):
     class Meta:
         model = Vehicule
