@@ -139,7 +139,7 @@ class MyUserManager(BaseUserManager):
         user.is_superuser = True
         user.save()
         return user
-    
+
     def create_admin(self, username, email, nom, prenom, roles, password=None):
         if not username:
             raise ValueError("Vous devez entrer un nom d'utilisateur")
@@ -292,6 +292,7 @@ class Vehicule(models.Model):
     date_limite_assurance_carteBrune = models.DateField(blank=True, null=True)
     date_limite_taxe = models.DateField(blank=True, null=True)
     date_limite_certificatVignette = models.DateField(blank=True, null=True)
+    litre = models.FloatField(default=0)
 
 
     def __str__(self):

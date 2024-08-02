@@ -190,6 +190,12 @@ class VehiculeForm(forms.ModelForm):
             'id': "date_limite_certificatVignette",
         })
 
+        self.fields['litre'].widget.attrs.update({
+            'class': "form-control",
+            'id': "litre",
+            'required': True,
+        })
+
 
 
 class VehiculeModifierForm(forms.ModelForm):
