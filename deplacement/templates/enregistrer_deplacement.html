@@ -81,6 +81,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label class="control-label col-sm-2 align-self-center mb-0" for="Coût">Coût:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="cout" name="cout" readonly >
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="control-label col-sm-2 align-self-center mb-0" for="email">Photo de la jauge :</label>
                                         <div class="form-control col-sm-9" style="border-radius: 10px; margin-left: 15px; padding-bottom: 35px">
                                             <input  required  placeholder="Choisir une image" type="file" class="form-control-file" accept="image/*"  id="photo_jauge_depart" name="photo_jauge_depart"  value="{% if form.photo_jauge_depart.value %}{{ form.photo_jauge_depart.value }}{% endif %}">
@@ -393,9 +399,10 @@
                         if (status === 'OK') {
                             var results = response.rows[0].elements;
                             var distanceInMeters = results[0].distance.value;
-                            var distanceInKilometers = Math.round(distanceInMeters / 1000); // Convert meters to kilometers and round to the nearest integer
+                            var distanceInKilometers = Math.round(distanceInMeters / 1000) *2; // Convert meters to kilometers and round to the nearest integer
                             var distanceInput = document.getElementById('distance');
-                            distanceInput.value = distanceInKilometers;
+                            distanceInput.value = distanceInKilometers ;
+
                         } else {
                             alert('Distance Matrix request failed due to ' + status);
                         }
